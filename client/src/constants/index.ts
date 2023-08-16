@@ -1,5 +1,11 @@
 export const PRIORITIES = [
-  { value: "high", label: "High" },
-  { value: "medium", label: "Medium" },
-  { value: "low", label: "Low" },
+  { label: "High", value: "high" },
+  { label: "Medium", value: "medium" },
+  { label: "Low", value: "low" },
+];
+
+export const MENUS = [
+  { label: "Not Started", value: "not_started" },
+  { label: "Pending", value: "pending" },
+  { label: "Completed", value: "completed" },
 ];

@@ -1,24 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { MENUS } from "../constants";
+import tasksServices from "../services/task";
 import InputField from "./InputField";
 import List from "./List";
 import Tabs from "./Tabs";
-import tasksServices from "../services/task";
 
 const Home = () => {
   const [task, setTask] = useState<any>({});
   const [tasks, setTasks] = useState<any>([]);
+  const [modifiedTasks, _setModifiedTasks] = useState<any>();
   const [editOn, setEditOn] = useState<boolean>(false);
   const [currentTask, setCurrentTask] = useState("");
   const [currentId, setCurrentId] = useState<number>();
   const [currentPriority, setCurrentPriority] = useState<string>();
+  const [selectedTab, setSelectedTab] = useState<string>(MENUS[0].value);
 
   const fetchTasks = async () => {
     try {
       const data = await tasksServices.get();
-      console.log(data);
       setTasks(data.data);
     } catch (err: any) {
       console.log({ message: err.message });
+    }
+  };
+
+  useEffect(() => {
+    setModifiedTasks(tasks);
+  }, [tasks, selectedTab]);
+
+  const setModifiedTasks = (items: any) => {
+    if (selectedTab) {
+      _setModifiedTasks(
+        items.filter((item: any) => item.status === selectedTab)
+      );
     }
   };
 
@@ -80,12 +94,12 @@ const Home = () => {
         handleSelectChange={handleSelectChange}
         handleSubmit={handleSubmit}
       />
-      <Tabs />
+      <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       <List
         className="mt-5"
         fetchTasks={fetchTasks}
-        tasks={tasks}
-        setTasks={setTasks}
+        modifiedTasks={modifiedTasks}
+        setModifiedTasks={setModifiedTasks}
         handleUpdate={handleUpdate}
         editOn={editOn}
         setEditOn={setEditOn}
@@ -96,6 +110,8 @@ const Home = () => {
         currentPriority={currentPriority}
         setCurrentPriority={setCurrentPriority}
         handleDelete={handleDelete}
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
       />
     </div>
   );
