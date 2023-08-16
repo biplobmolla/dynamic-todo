@@ -4,6 +4,7 @@ import tasksServices from "../services/task";
 import InputField from "./InputField";
 import List from "./List";
 import Tabs from "./Tabs";
+import Trophy from "./Trophy";
 
 const Home = () => {
   const [task, setTask] = useState<any>({});
@@ -13,6 +14,7 @@ const Home = () => {
   const [currentTask, setCurrentTask] = useState("");
   const [currentId, setCurrentId] = useState<number>();
   const [currentPriority, setCurrentPriority] = useState<string>();
+  const [currentStatus, setCurrentStatus] = useState<string>();
   const [selectedTab, setSelectedTab] = useState<string>(MENUS[0].value);
 
   const fetchTasks = async () => {
@@ -62,6 +64,7 @@ const Home = () => {
       const data = await tasksServices.update(id, {
         name: currentTask,
         priority: currentPriority,
+        status: currentStatus,
       });
       console.log(data);
       refetch();
@@ -85,35 +88,43 @@ const Home = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto">
-      <h2 className="text-6xl font-bold my-1">Todo</h2>
-      <InputField
-        task={task}
-        setTask={setTask}
-        handleInputChange={handleInputChange}
-        handleSelectChange={handleSelectChange}
-        handleSubmit={handleSubmit}
+    <>
+      <Trophy
+        trophyCount={
+          tasks.filter((item: any) => item.status === "completed").length * 5
+        }
       />
-      <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-      <List
-        className="mt-5"
-        fetchTasks={fetchTasks}
-        modifiedTasks={modifiedTasks}
-        setModifiedTasks={setModifiedTasks}
-        handleUpdate={handleUpdate}
-        editOn={editOn}
-        setEditOn={setEditOn}
-        currentTask={currentTask}
-        setCurrentTask={setCurrentTask}
-        currentId={currentId}
-        setCurrentId={setCurrentId}
-        currentPriority={currentPriority}
-        setCurrentPriority={setCurrentPriority}
-        handleDelete={handleDelete}
-        selectedTab={selectedTab}
-        setSelectedTab={setSelectedTab}
-      />
-    </div>
+      <div className="max-w-xl mx-auto">
+        <h2 className="text-6xl font-bold my-1">Todo</h2>
+        <InputField
+          task={task}
+          setTask={setTask}
+          handleInputChange={handleInputChange}
+          handleSelectChange={handleSelectChange}
+          handleSubmit={handleSubmit}
+        />
+        <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+        <List
+          className="mt-5"
+          fetchTasks={fetchTasks}
+          modifiedTasks={modifiedTasks}
+          setModifiedTasks={setModifiedTasks}
+          handleUpdate={handleUpdate}
+          editOn={editOn}
+          setEditOn={setEditOn}
+          currentTask={currentTask}
+          setCurrentTask={setCurrentTask}
+          currentId={currentId}
+          setCurrentId={setCurrentId}
+          currentPriority={currentPriority}
+          setCurrentPriority={setCurrentPriority}
+          handleDelete={handleDelete}
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+          setCurrentStatus={setCurrentStatus}
+        />
+      </div>
+    </>
   );
 };
 
