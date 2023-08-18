@@ -1,6 +1,6 @@
 import { Button, Empty, Input, Select } from "antd";
 import { useEffect } from "react";
-import { PRIORITIES } from "../constants";
+import { MENUS, PRIORITIES } from "../constants";
 
 const List = ({
   className,
@@ -10,6 +10,7 @@ const List = ({
   editOn,
   setEditOn,
   setCurrentPriority,
+  setCurrentStatus,
   currentTask,
   currentId,
   setCurrentId,
@@ -24,8 +25,12 @@ const List = ({
     return str.charAt(0).toUpperCase() + str.substring(1);
   }
 
-  const handleChange = (value: string) => {
+  const handlePriorityChange = (value: string) => {
     setCurrentPriority(value);
+  };
+
+  const handleStatusChange = (value: string) => {
+    setCurrentStatus(value);
   };
 
   const handleEdit = (idx: number) => {
@@ -41,6 +46,7 @@ const List = ({
             <th className="text-center">ID</th>
             <th className="text-center">Name</th>
             <th className="text-center">Priority</th>
+            <th className="text-center">Status</th>
             <th className="text-center">Action</th>
           </tr>
           {modifiedTasks?.map((task: any, idx: number) => (
@@ -54,16 +60,28 @@ const List = ({
               ) : (
                 <td className="border-2 px-1 font-semibold">{task.name}</td>
               )}
-              <td className="text-center">
+              <td className="text-center border-2">
                 {editOn && currentId === task._id ? (
                   <Select
                     defaultValue={task.priority}
                     style={{ width: 120 }}
-                    onChange={handleChange}
+                    onChange={handlePriorityChange}
                     options={PRIORITIES}
                   />
                 ) : (
                   capitalizeString(task.priority)
+                )}
+              </td>
+              <td className="text-center border-2">
+                {editOn && currentId === task._id ? (
+                  <Select
+                    defaultValue={task.status}
+                    style={{ width: 120 }}
+                    onChange={handleStatusChange}
+                    options={MENUS}
+                  />
+                ) : (
+                  capitalizeString(task.status)
                 )}
               </td>
               <td className="flex items-center py-1 border-2 justify-center">

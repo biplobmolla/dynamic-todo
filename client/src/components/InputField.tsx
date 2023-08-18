@@ -3,7 +3,6 @@ import { PRIORITIES } from "../constants";
 
 const InputField = ({
   task,
-  setTask,
   handleInputChange,
   handleSelectChange,
   handleSubmit,
@@ -17,7 +16,7 @@ const InputField = ({
       />
       <Select
         className="mx-2"
-        defaultValue={PRIORITIES[0]}
+        defaultValue={PRIORITIES[2]}
         style={{ width: 120 }}
         onChange={handleSelectChange}
         options={PRIORITIES}

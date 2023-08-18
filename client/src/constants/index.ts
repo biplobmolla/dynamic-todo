@@ -9,3 +9,7 @@ export const MENUS = [
   { label: "Pending", value: "pending" },
   { label: "Completed", value: "completed" },
 ];
+
+// export const PRIORITIES = ["high", "medium", "low"];
+
+// export const MENUS = ["not_started", "pending", "completed"];
