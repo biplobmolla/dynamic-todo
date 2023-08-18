@@ -94,36 +94,26 @@ const Home = () => {
           tasks.filter((item: any) => item.status === "completed").length * 5
         }
       />
-      <div className="max-w-xl mx-auto">
-        <h2 className="text-6xl font-bold my-1">Todo</h2>
-        <InputField
-          task={task}
-          setTask={setTask}
-          handleInputChange={handleInputChange}
-          handleSelectChange={handleSelectChange}
-          handleSubmit={handleSubmit}
-        />
-        <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-        <List
-          className="mt-5"
-          fetchTasks={fetchTasks}
-          modifiedTasks={modifiedTasks}
-          setModifiedTasks={setModifiedTasks}
-          handleUpdate={handleUpdate}
-          editOn={editOn}
-          setEditOn={setEditOn}
-          currentTask={currentTask}
-          setCurrentTask={setCurrentTask}
-          currentId={currentId}
-          setCurrentId={setCurrentId}
-          currentPriority={currentPriority}
-          setCurrentPriority={setCurrentPriority}
-          handleDelete={handleDelete}
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-          setCurrentStatus={setCurrentStatus}
-        />
-      </div>
+      <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+      <List
+        className="mt-5"
+        fetchTasks={fetchTasks}
+        modifiedTasks={modifiedTasks}
+        setModifiedTasks={setModifiedTasks}
+        handleUpdate={handleUpdate}
+        editOn={editOn}
+        setEditOn={setEditOn}
+        currentTask={currentTask}
+        setCurrentTask={setCurrentTask}
+        currentId={currentId}
+        setCurrentId={setCurrentId}
+        currentPriority={currentPriority}
+        setCurrentPriority={setCurrentPriority}
+        handleDelete={handleDelete}
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
+      />
+      <h1>This is my changes</h1>
     </>
   );
 };
